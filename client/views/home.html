@@ -1,0 +1,116 @@
+<template name="home">
+  {{>dropdown}}
+  <!--<div class="section">-->
+  <div class="container-fuild">
+    <div class="row">
+      {{>cards}}
+    </div>
+  </div>
+  <!--</div>-->
+  {{>option}} {{>payment}}
+</template>
+
+<template name="cards">
+  {{#each lists}}
+      <div class="col-xs-6 col-md-3 col-lg-2">
+        <h2 class="text-center">{{number}}</h2>
+        <div data-target="#myModal" data-toggle="modal">
+          <div class="row">
+            <div class="col-xs-6 text-right">เริ่ม
+              <br>ค่าลูก
+              <br>ค่าสนาม
+              <br>ค่าของกิน
+              <br>รวม
+              <br>
+            </div>
+            <div class="col-xs-6">{{start}}
+              <br>{{option1}}
+              <div class="pull-right">
+                <a href="#" id="{{_id}}">add</a>
+              </div>
+              <br>{{option2}}
+              <br>{{option3}}
+              <br>0
+              <br>
+            </div>
+          </div>
+        </div>
+        <div class="text-center">
+          <button id="{{_id}}" class="btn btn-block btn-primary" data-toggle="modal" data-target="#pay">ชำระเงิน</button>
+        </div>
+      </div>
+      {{/each}}
+</template>
+
+<template name="dropdown">
+  <div class="section text-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">Number
+          <div class="btn-group btn-group-sm">
+            <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown"> Dropdown <span class="fa fa-caret-down"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li>
+                {{#each numbers}}
+                <a id="{{_id}}" href="#">{{number}}</a> {{/each}}
+              </li>
+            </ul>
+          </div>
+          <button class="btn btn-sm btn-success">Start1</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="option">
+  <div class="fade modal text-center" id="myModal">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h4 class="modal-title">เพิ่มของกิน</h4>
+        </div>
+        <div class="modal-body">
+          <p>เลือกราคา</p>
+          <div class="btn-group btn-group-lg">
+            <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown"> Dropdown <span class="fa fa-caret-down"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li>
+                <a href="#">Action</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <a class="btn btn-default" data-dismiss="modal">Close</a>
+          <a class="btn btn-primary">Save changes</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="payment">
+  <div class="fade modal text-center" id="pay">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h4 class="modal-title">ชำระเงิน</h4>
+        </div>
+        <div class="modal-body">
+          <p>หมายเลข
+            <br>1
+            <br>
+            <br>จำนวนเงินที่ต้องชำระ
+            <br>120</p>
+        </div>
+        <div class="modal-footer">
+          <a class="btn btn-default" data-dismiss="modal">Close</a>
+          <a class="btn btn-primary accept" data-dismiss="modal">Accept</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
