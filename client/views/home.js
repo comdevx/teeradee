@@ -1,23 +1,33 @@
 Template.cards.helpers({
   lists: function () {
-    return Cards.find({ start: { $ne: '' } });
+    const array = [];
+    Cards.find({ start: { $ne: '' } }).forEach(function (value) {
+      const date = value.start;
+      const list = {
+        start: date.getHours() + ':' + date.getMinutes(),
+        option1: value.option1,
+        option2: value.option2,
+        option3: value.option3,
+      };
+      array.push(list);
+    });
+    return array;
   }
 });
 
 Template.dropdown.helpers({
   numbers: function () {
-    return Cards.find({ start: '' });
+    return Cards.find({ start: '' }, { sort: { number: 1 } });
   }
 });
 
 Template.dropdown.events({
   'click button': function (event) {
     try {
-      var date = new Date;
       var getId = Session.get('id');
       Cards.update(getId, {
         $set: {
-          start: date.getHours() + ' : ' + date.getUTCMinutes(),
+          start: new Date(),
           option1: 0,
           option2: 0,
           option3: 0,
