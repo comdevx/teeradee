@@ -3,11 +3,19 @@ Template.cards.helpers({
     const array = [];
     Cards.find({ start: { $ne: '' } }).forEach(function (value) {
       const date = value.start;
+
+      const time = new Date();
+      const firstTime = time.getHours() * 60 + time.getMinutes();
+      const endTime = date.getHours() * 60 + date.getMinutes();
+      const totaltime = firstTime - endTime;
+
       const list = {
+        _id: value._id,
         start: date.getHours() + ':' + date.getMinutes(),
         option1: value.option1,
         option2: value.option2,
         option3: value.option3,
+        total: totaltime
       };
       array.push(list);
     });
@@ -50,9 +58,9 @@ Template.cards.events({
     console.log(this._id);
   },
   'click button': function (event) {
-    if (this._id) {
-      console.log(this._id);
-      Session.set('id', this._id);
+    const getId = this._id;
+    if (getId) {
+      Session.set('id', getId);
     }
   }
 });
@@ -60,13 +68,13 @@ Template.cards.events({
 Template.payment.events({
   'click div a.accept': function (event) {
     var getId = Session.get('id');
-    Cards.update(getId, {
-      $set: {
-        start: '',
-        option1: 0,
-        option2: 0,
-        option3: 0,
-      }
-    });
+    // Cards.update(getId, {
+    //   $set: {
+    //     start: '',
+    //     option1: 0,
+    //     option2: 0,
+    //     option3: 0,
+    //   }
+    // });
   }
 });

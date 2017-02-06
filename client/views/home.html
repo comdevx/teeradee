@@ -12,34 +12,34 @@
 
 <template name="cards">
   {{#each lists}}
-      <div class="col-xs-6 col-md-3 col-lg-2">
-        <h2 class="text-center">{{number}}</h2>
-        <div data-target="#myModal" data-toggle="modal">
-          <div class="row">
-            <div class="col-xs-6 text-right">เริ่ม
-              <br>ค่าลูก
-              <br>ค่าสนาม
-              <br>ค่าของกิน
-              <br>รวม
-              <br>
-            </div>
-            <div class="col-xs-6">{{start}}
-              <br>{{option1}}
-              <div class="pull-right">
-                <a href="#" id="{{_id}}">add</a>
-              </div>
-              <br>{{option2}}
-              <br>{{option3}}
-              <br>0
-              <br>
-            </div>
-          </div>
+  <div class="col-xs-6 col-md-3 col-lg-2">
+    <h2 class="text-center">{{number}}</h2>
+    <div data-target="#myModal" data-toggle="modal">
+      <div class="row">
+        <div class="col-xs-6 text-right">เริ่ม
+          <br>ค่าลูก
+          <br>ค่าสนาม
+          <br>ค่าของกิน
+          <br>รวม
+          <br>
         </div>
-        <div class="text-center">
-          <button id="{{_id}}" class="btn btn-block btn-primary" data-toggle="modal" data-target="#pay">ชำระเงิน</button>
+        <div class="col-xs-6">{{start}}
+          <br>{{option1}}
+          <div class="pull-right">
+            <a href="#" id="{{_id}}">add</a>
+          </div>
+          <br>{{option2}}
+          <br>{{option3}}
+          <br>{{total}}
+          <br>
         </div>
       </div>
-      {{/each}}
+    </div>
+    <div class="text-center">
+      <button id="{{_id}}" class="btn btn-block btn-primary" data-toggle="modal" data-target="#pay">ชำระเงิน</button>
+    </div>
+  </div>
+  {{/each}}
 </template>
 
 <template name="dropdown">
