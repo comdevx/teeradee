@@ -45,6 +45,7 @@ if (Cards.find().count() === 0) {
             option1: 0,
             option2: 0,
             option3: 0,
+            minute: 0,
         });
     }
 }
@@ -57,17 +58,13 @@ if (Rate.find().count() === 0) {
 
 Meteor.setInterval(function () {
     Cards.find({ start: { $ne: '' } }).forEach(function (value) {
-
-        const date = value.start;
-
-        const time = new Date();
-        const firstTime = time.getHours() * 60 + time.getMinutes();
-        const endTime = date.getHours() * 60 + date.getMinutes();
-        const totaltime = firstTime - endTime;
-
+        const getRate = Rate.findOne();
+        const count = value.minute + 1;
+        const total = Number.parseInt(count * getRate.rate);
         Cards.update(value._id, {
             $set: {
-                option2: totaltime
+                option2: total,
+                minute: count,
             }
         })
     });

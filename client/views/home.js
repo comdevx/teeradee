@@ -15,6 +15,7 @@ Template.cards.helpers({
         option1: option1,
         option2: option2,
         option3: option3,
+        minute: value.minute,
         total: option1 + option2 + option3,
       };
       array.push(list);
@@ -40,6 +41,7 @@ Template.dropdown.events({
           option1: 0,
           option2: 0,
           option3: 0,
+          minute: 0,
         }
       });
     }
@@ -69,6 +71,7 @@ Template.payment.events({
         option1: 0,
         option2: 0,
         option3: 0,
+          minute: 0,
       }
     });
   }
@@ -76,22 +79,29 @@ Template.payment.events({
 
 Template.payment.helpers({
   payment: function () {
-    const id = Session.get('id');
-    const card = Cards.findOne(id);
-    const getRate = Rate.findOne();
-    const date = card.start;
-    const option1 = card.option1;
-    const option2 = Number.parseInt(card.option2 * getRate.rate);
-    const option3 = card.option3;
-    const list = {
-      number: card.number,
-      start: date.getHours() + ':' + date.getMinutes(),
-      option1: option1,
-      option2: option2,
-      option3: option3,
-      total: option1 + option2 + option3,
-    };
-    return list;
+    try {
+      const id = Session.get('id');
+      const card = Cards.findOne(id);
+      if (card) {
+        const getRate = Rate.findOne();
+        const date = card.start;
+        const option1 = card.option1;
+        const option2 = Number.parseInt(card.option2 * getRate.rate);
+        const option3 = card.option3;
+        const list = {
+          number: card.number,
+          start: date.getHours() + ':' + date.getMinutes(),
+          option1: option1,
+          option2: option2,
+          option3: option3,
+          minute: card.minute,
+          total: option1 + option2 + option3,
+        };
+        return list;
+      }
+    } catch (error) {
+      console.log(error)
+    }
   }
 });
 
