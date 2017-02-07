@@ -3,24 +3,45 @@ Template.cards.helpers({
     const array = [];
     Cards.find({ start: { $ne: '' } }).forEach(function (value) {
       const date = value.start;
+      const option1 = value.option1;
+      const option2 = value.option2;
+      const option3 = value.option3;
 
-      const time = new Date();
-      const firstTime = time.getHours() * 60 + time.getMinutes();
-      const endTime = date.getHours() * 60 + date.getMinutes();
-      const totaltime = firstTime - endTime;
+      // const time = new Date();
+      // const firstTime = time.getHours() * 60 + time.getMinutes();
+      // const endTime = date.getHours() * 60 + date.getMinutes();
+      // const totaltime = firstTime - endTime;
 
       const list = {
         _id: value._id,
         start: date.getHours() + ':' + date.getMinutes(),
-        option1: value.option1,
-        option2: value.option2,
-        option3: value.option3,
-        total: totaltime
+        option1: option1,
+        option2: option2,
+        option3: option3,
+        total: option1 + option2 + option3,
       };
       array.push(list);
     });
     return array;
   }
+});
+
+Tracker.autorun(function () {
+  Cards.find({ start: { $ne: '' } }).forEach(function (value) {
+    const date = value.start;
+
+    const time = new Date();
+    const firstTime = time.getHours() * 60 + time.getMinutes();
+    const endTime = date.getHours() * 60 + date.getMinutes();
+    const totaltime = firstTime - endTime;
+
+    Cards.update(value._id, {
+      $set: {
+        option2: totaltime
+      }
+    })
+  });
+  console.log('update time');
 });
 
 Template.dropdown.helpers({

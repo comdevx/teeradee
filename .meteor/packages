@@ -1,3 +1,7 @@
-standard-app-packages
+standard-app-packages@1.0.9
 iron:router
 twbs:bootstrap
+froatsnook:sleep
+standard-minifier-css
+standard-minifier-js
+shell-server
