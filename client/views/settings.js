@@ -1,14 +1,11 @@
 Template.rate.helpers({
     load: function () {
         return Rate.findOne();
-        // console.log(test);
-        // Session.set('rateId', test[0]._id);
-        // return test;
     }
 });
 
 Template.setRate.events({
-    'submit': function (event) {
+    'submit': function (event, form) {
         event.preventDefault();
         const rateValue = Number(event.target.rate.value);
         const getRate = Rate.findOne();
@@ -17,15 +14,16 @@ Template.setRate.events({
                 rate: rateValue
             }
         });
+        form.find("form").reset();
     },
 });
 
 Template.product.events({
-    'submit': function (event) {
+    'submit': function (event, form) {
         event.preventDefault();
         const price = Number(event.target.price.value);
-        console.log(price)
         Products.insert({ price: price });
+        form.find("form").reset();
     },
 });
 
@@ -42,16 +40,11 @@ Template.productList.helpers({
 });
 
 Template.product2.events({
-    'submit': function (event) {
+    'submit': function (event, form) {
         event.preventDefault();
         const price = Number(event.target.price.value);
-        console.log(price)
         Balls.insert({ price: price });
-    },
-    'click .danger': function (event) {
-        const id = Number(event.target.price.value);
-        console.log(price)
-        Balls.remove();
+        form.find("form").reset();
     },
 });
 
@@ -64,5 +57,11 @@ Template.productList2.events({
 Template.productList2.helpers({
     balls: function () {
         return Balls.find();
+    }
+});
+
+Template.log.helpers({
+    logs: function () {
+        return Logs.find();
     }
 });

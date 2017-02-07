@@ -60,8 +60,10 @@ Template.cards.events({
 
 Template.payment.events({
   'click div a.btn-success': function (event) {
-    var getId = Session.get('id');
-    Cards.update(getId, {
+    var id = Session.get('id');
+    const card = Cards.findOne(id);
+    Logs.insert(card);
+    Cards.update(id, {
       $set: {
         start: '',
         option1: 0,
@@ -69,6 +71,27 @@ Template.payment.events({
         option3: 0,
       }
     });
+  }
+});
+
+Template.payment.helpers({
+  payment: function () {
+    const id = Session.get('id');
+    const card = Cards.findOne(id);
+    const getRate = Rate.findOne();
+    const date = card.start;
+    const option1 = card.option1;
+    const option2 = Number.parseInt(card.option2 * getRate.rate);
+    const option3 = card.option3;
+    const list = {
+      number: card.number,
+      start: date.getHours() + ':' + date.getMinutes(),
+      option1: option1,
+      option2: option2,
+      option3: option3,
+      total: option1 + option2 + option3,
+    };
+    return list;
   }
 });
 
@@ -105,7 +128,6 @@ Template.option2.events({
     Cards.find().forEach(function (value) {
       const sum = price / count;
       const total = Number.parseInt(value.option3 + sum);
-      console.log(sum);
       Cards.update(value._id, {
         $set: {
           option3: total,

@@ -31,6 +31,12 @@ Balls.allow({
     },
 });
 
+Logs.allow({
+    insert(userId, doc) {
+        return true;
+    },
+});
+
 if (Cards.find().count() === 0) {
     for (var i = 1; i < 41; i++) {
         Cards.insert({

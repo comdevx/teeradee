@@ -167,21 +167,23 @@
             <tr>
                 <th>วันที่</th>
                 <th>#</th>
-                <th>ลูกแบด</th>
                 <th>ของกิน</th>
                 <th>ค่าสนาม</th>
+                <th>ลูกแบด</th>
                 <th>รวม</th>
             </tr>
         </thead>
         <tbody>
+            {{#each logs}}
             <tr>
-                <td>01/02/2560</td>
-                <td>1</td>
-                <td>70</td>
-                <td>50</td>
-                <td>60</td>
-                <td>180</td>
+                <td>{{start}}</td>
+                <td>{{number}}</td>
+                <td>{{option1}}</td>
+                <td>{{option2}}</td>
+                <td>{{option3}}</td>
+                <td>{{total}}</td>
             </tr>
+            {{/each}}
         </tbody>
     </table>
 </template>

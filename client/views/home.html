@@ -52,7 +52,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <div class="btn-group btn-group-sm">
+          <div class="btn-group btn-group-md">
             <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown"> Number <span class="fa fa-caret-down"></span></a>
             <ul class="dropdown-menu" role="menu">
               <li>
@@ -61,7 +61,7 @@
               </li>
             </ul>
           </div>
-          <button class="btn btn-sm btn-success">Start1</button>
+          <button class="btn btn-md btn-success">เริ่มจับเวลา</button>
         </div>
       </div>
     </div>
@@ -125,11 +125,23 @@
           <h4 class="modal-title">ชำระเงิน</h4>
         </div>
         <div class="modal-body">
-          <p>หมายเลข
-            <br>1
-            <br>
-            <br>จำนวนเงินที่ต้องชำระ
-            <br>120</p>
+            <h2 class="text-center">{{payment.number}}</h2>
+            <div class="row">
+              <div class="col-xs-6 text-right">เริ่ม
+                <br>ค่าของกิน
+                <br>ค่าสนาม
+                <br>ค่าลูก
+                <br>รวม
+                <br>
+              </div>
+              <div class="text-left col-xs-6">{{payment.start}}
+                <br>{{payment.option1}}
+                <br>{{payment.option2}}
+                <br>{{payment.option3}}
+                <br>{{payment.total}}
+                <br>
+              </div>
+            </div>
         </div>
         <div class="modal-footer">
           <a class="btn btn-success" data-dismiss="modal">Accept</a>
