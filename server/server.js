@@ -25,8 +25,14 @@ if (Cards.find().count() === 0) {
     }
 }
 
-Cards.find({ start: { $ne: '' } }).forEach(function (value) {
-    Meteor.setInterval(function () {
+if (Rate.find().count() === 0) {
+    Rate.insert({
+        rate: 0,
+    });
+}
+
+Meteor.setInterval(function () {
+    Cards.find({ start: { $ne: '' } }).forEach(function (value) {
 
         const date = value.start;
 
@@ -40,6 +46,5 @@ Cards.find({ start: { $ne: '' } }).forEach(function (value) {
                 option2: totaltime
             }
         })
-        console.log('update time');
-    }, 6000);
-});
+    });
+}, 60000);
