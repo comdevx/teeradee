@@ -26,23 +26,23 @@ Template.cards.helpers({
   }
 });
 
-Tracker.autorun(function () {
-  Cards.find({ start: { $ne: '' } }).forEach(function (value) {
-    const date = value.start;
+// Tracker.autorun(function () {
+//   Cards.find({ start: { $ne: '' } }).forEach(function (value) {
+//     const date = value.start;
 
-    const time = new Date();
-    const firstTime = time.getHours() * 60 + time.getMinutes();
-    const endTime = date.getHours() * 60 + date.getMinutes();
-    const totaltime = firstTime - endTime;
+//     const time = new Date();
+//     const firstTime = time.getHours() * 60 + time.getMinutes();
+//     const endTime = date.getHours() * 60 + date.getMinutes();
+//     const totaltime = firstTime - endTime;
 
-    Cards.update(value._id, {
-      $set: {
-        option2: totaltime
-      }
-    })
-  });
-  console.log('update time');
-});
+//     Cards.update(value._id, {
+//       $set: {
+//         option2: totaltime
+//       }
+//     })
+//   });
+//   console.log('update time');
+// });
 
 Template.dropdown.helpers({
   numbers: function () {
@@ -52,19 +52,16 @@ Template.dropdown.helpers({
 
 Template.dropdown.events({
   'click button': function (event) {
-    try {
-      var getId = Session.get('id');
-      Cards.update(getId, {
-        $set: {
-          start: new Date(),
-          option1: 0,
-          option2: 0,
-          option3: 0,
-        }
-      });
-    } catch (error) {
-      console.log(error)
-    }
+    var getId = Session.get('id');
+    Cards.update(getId, {
+      $set: {
+        start: new Date(),
+        option1: 0,
+        option2: 0,
+        option3: 0,
+      }
+    });
+    Session.set('id', '');
   },
 
   'click a': function (event) {
