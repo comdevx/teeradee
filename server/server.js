@@ -13,6 +13,24 @@ Rate.allow({
     }
 });
 
+Products.allow({
+    insert(userId, doc) {
+        return true;
+    },
+    remove(userId, doc) {
+        return true;
+    },
+});
+
+Balls.allow({
+    insert(userId, doc) {
+        return true;
+    },
+    remove(userId, doc) {
+        return true;
+    },
+});
+
 if (Cards.find().count() === 0) {
     for (var i = 1; i < 41; i++) {
         Cards.insert({

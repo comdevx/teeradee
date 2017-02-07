@@ -32,15 +32,17 @@ Template.dropdown.helpers({
 Template.dropdown.events({
   'click button': function (event) {
     var getId = Session.get('id');
-    Cards.update(getId, {
-      $set: {
-        start: new Date(),
-        option1: 0,
-        option2: 0,
-        option3: 0,
-      }
-    });
-    Session.set('id', '');
+    const card = Cards.findOne(getId);
+    if (card && card.start === '') {
+      Cards.update(getId, {
+        $set: {
+          start: new Date(),
+          option1: 0,
+          option2: 0,
+          option3: 0,
+        }
+      });
+    }
   },
 
   'click a': function (event) {
@@ -51,19 +53,13 @@ Template.dropdown.events({
 });
 
 Template.cards.events({
-  'click a': function (event) {
-    console.log(this._id);
-  },
-  'click button': function (event) {
-    const getId = this._id;
-    if (getId) {
-      Session.set('id', getId);
-    }
+  'click': function (event) {
+    Session.set('id', this._id);
   }
 });
 
 Template.payment.events({
-  'click div a.accept': function (event) {
+  'click div a.btn-success': function (event) {
     var getId = Session.get('id');
     Cards.update(getId, {
       $set: {
@@ -73,5 +69,59 @@ Template.payment.events({
         option3: 0,
       }
     });
+  }
+});
+
+Template.option1.events({
+  'click div a.btn-success': function (event) {
+    const price = Session.get('price');
+    const id = Session.get('id');
+    const card = Cards.findOne(id);
+    Cards.update(id, {
+      $set: {
+        option1: card.option3 + price,
+      }
+    });
+  },
+  'click a': function (event) {
+    if (this.price) {
+      Session.set('price', this.price);
+    }
+  }
+});
+
+Template.option1.helpers({
+  options: function () {
+    return Products.find({}, { sort: { price: 1 } });
+  }
+});
+
+Template.option2.events({
+  'click div a.btn-success': function (event) {
+    const price = Session.get('price');
+    const id = Session.get('id');
+    const card = Cards.findOne(id);
+    const count = Cards.find({ start: { $ne: '' } }).count();
+    Cards.find().forEach(function (value) {
+      const sum = price / count;
+      const total = Number.parseInt(value.option3 + sum);
+      console.log(sum);
+      Cards.update(value._id, {
+        $set: {
+          option3: total,
+        }
+      });
+    });
+  },
+  'click a': function (event) {
+    if (this.price) {
+      Session.set('price', this.price);
+    }
+  }
+});
+
+Template.option2.helpers({
+  options: function () {
+    return Balls.find({}, { sort: { price: 1 } });
   }
 });

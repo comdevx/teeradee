@@ -7,36 +7,41 @@
     </div>
   </div>
   <!--</div>-->
-  {{>option}} {{>payment}}
+  {{>option1}}{{>option2}} {{>payment}}
 </template>
 
 <template name="cards">
   {{#each lists}}
-  <div class="col-xs-6 col-md-3 col-lg-2">
+  <div id="{{_id}}" class="col-xs-6 col-md-3 col-lg-2">
     <h2 class="text-center">{{number}}</h2>
-    <div data-target="#myModal" data-toggle="modal">
-      <div class="row">
-        <div class="col-xs-6 text-right">เริ่ม
-          <br>ค่าลูก
-          <br>ค่าสนาม
-          <br>ค่าของกิน
-          <br>รวม
-          <br>
-        </div>
-        <div class="col-xs-6">{{start}}
-          <br>{{option1}}
-          <div class="pull-right">
-            <a href="#" id="{{_id}}">add</a>
+    <div class="row">
+      <div class="col-xs-6 text-right">เริ่ม
+        <br>ค่าของกิน
+        <br>ค่าสนาม
+        <br>ค่าลูก
+        <br>รวม
+        <br>
+      </div>
+      <div class="col-xs-6">{{start}}
+        <br>{{option1}}
+        <div class="pull-right .product">
+          <div data-target="#option1" data-toggle="modal">
+            <a href="#">add</a>
           </div>
-          <br>{{option2}}
-          <br>{{option3}}
-          <br>{{total}}
-          <br>
         </div>
+        <br>{{option2}}
+        <br>{{option3}}
+        <div class="pull-right .ball">
+          <div data-target="#option2" data-toggle="modal">
+            <a href="#">add</a>
+          </div>
+        </div>
+        <br>{{total}}
+        <br>
       </div>
     </div>
     <div class="text-center">
-      <button id="{{_id}}" class="btn btn-block btn-primary" data-toggle="modal" data-target="#pay">ชำระเงิน</button>
+      <button class="btn btn-block btn-primary" data-toggle="modal" data-target="#pay">ชำระเงิน</button>
     </div>
   </div>
   {{/each}}
@@ -46,9 +51,9 @@
   <div class="section text-center">
     <div class="container">
       <div class="row">
-        <div class="col-md-12">Number
+        <div class="col-md-12">
           <div class="btn-group btn-group-sm">
-            <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown"> Dropdown <span class="fa fa-caret-down"></span></a>
+            <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown"> Number <span class="fa fa-caret-down"></span></a>
             <ul class="dropdown-menu" role="menu">
               <li>
                 {{#each numbers}}
@@ -63,28 +68,48 @@
   </div>
 </template>
 
-<template name="option">
-  <div class="fade modal text-center" id="myModal">
+<template name="option1">
+  <div class="fade modal text-center" id="option1">
     <div class="modal-dialog modal-sm">
       <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-          <h4 class="modal-title">เพิ่มของกิน</h4>
-        </div>
         <div class="modal-body">
-          <p>เลือกราคา</p>
           <div class="btn-group btn-group-lg">
-            <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown"> Dropdown <span class="fa fa-caret-down"></span></a>
+            <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown"> สินค้า <span class="fa fa-caret-down"></span></a>
             <ul class="dropdown-menu" role="menu">
               <li>
-                <a href="#">Action</a>
+                {{#each options}}
+                <a id="{{price}}" href="#">{{price}}</a> {{/each}}
               </li>
             </ul>
           </div>
         </div>
         <div class="modal-footer">
-          <a class="btn btn-default" data-dismiss="modal">Close</a>
-          <a class="btn btn-primary">Save changes</a>
+          <a class="btn btn-success" data-dismiss="modal">ตกลง</a>
+          <a class="btn btn-danger" data-dismiss="modal">ปิด</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="option2">
+  <div class="fade modal text-center" id="option2">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="btn-group btn-group-lg">
+            <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown"> ลูกแบด <span class="fa fa-caret-down"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li>
+                {{#each options}}
+                <a id="{{price}}" href="#">{{price}}</a> {{/each}}
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <a class="btn btn-success" data-dismiss="modal">ตกลง</a>
+          <a class="btn btn-danger" data-dismiss="modal">ปิด</a>
         </div>
       </div>
     </div>
@@ -107,8 +132,8 @@
             <br>120</p>
         </div>
         <div class="modal-footer">
-          <a class="btn btn-default" data-dismiss="modal">Close</a>
-          <a class="btn btn-primary accept" data-dismiss="modal">Accept</a>
+          <a class="btn btn-success" data-dismiss="modal">Accept</a>
+          <a class="btn btn-danger" data-dismiss="modal">ปิด</a>
         </div>
       </div>
     </div>
