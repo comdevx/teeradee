@@ -62,14 +62,18 @@ Template.cards.events({
 
 Template.payment.events({
   'click div a.btn-success': function (event) {
-    var id = Session.get('id');
-    const card = Cards.findOne(id);
+    const id = Session.get('id'),
+      card = Cards.findOne(id),
+      option1 = card.option1,
+      option2 = card.option2,
+      option3 = card.option3;
     Logs.insert({
       start: card.start,
-      option1: card.option1,
-      option2: card.option2,
-      option3: card.option3,
       minute: card.minute,
+      option1: option1,
+      option2: option2,
+      option3: option3,
+      total: option1 + option2 + option3,
     });
     Cards.update(id, {
       $set: {
@@ -88,7 +92,7 @@ Template.payment.helpers({
     try {
       const id = Session.get('id');
       const card = Cards.findOne(id);
-      if (card) {
+      if (card && card.start != '') {
         const getRate = Rate.findOne();
         const date = card.start;
         const option1 = card.option1;
@@ -106,7 +110,7 @@ Template.payment.helpers({
         return list;
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
 });
@@ -121,6 +125,7 @@ Template.option1.events({
         option1: card.option1 + price,
       }
     });
+    Session.set('price', 0);
   },
   'click a': function (event) {
     if (this.price) {
@@ -152,6 +157,7 @@ Template.option2.events({
         }
       });
     });
+    Session.set('price', 0);
   },
   'click a': function (event) {
     if (this.price) {
