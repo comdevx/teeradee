@@ -64,7 +64,13 @@ Template.payment.events({
   'click div a.btn-success': function (event) {
     var id = Session.get('id');
     const card = Cards.findOne(id);
-    Logs.insert(card);
+    Logs.insert({
+      start: card.start,
+      option1: card.option1,
+      option2: card.option2,
+      option3: card.option3,
+      minute: card.minute,
+    });
     Cards.update(id, {
       $set: {
         start: '',
