@@ -5,7 +5,7 @@ Template.cards.helpers({
       const getRate = Rate.findOne();
       const date = value.start;
       const option1 = value.option1;
-      const option2 = Number.parseInt(value.option2 * getRate.rate);
+      const option2 = Number.parseInt(value.option2);
       const option3 = value.option3;
 
       const list = {
