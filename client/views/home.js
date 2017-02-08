@@ -71,7 +71,7 @@ Template.payment.events({
         option1: 0,
         option2: 0,
         option3: 0,
-          minute: 0,
+        minute: 0,
       }
     });
   }
@@ -112,7 +112,7 @@ Template.option1.events({
     const card = Cards.findOne(id);
     Cards.update(id, {
       $set: {
-        option1: card.option3 + price,
+        option1: card.option1 + price,
       }
     });
   },
@@ -135,9 +135,11 @@ Template.option2.events({
     const id = Session.get('id');
     const card = Cards.findOne(id);
     const count = Cards.find({ start: { $ne: '' } }).count();
+
     Cards.find().forEach(function (value) {
       const sum = price / count;
       const total = Number.parseInt(value.option3 + sum);
+
       Cards.update(value._id, {
         $set: {
           option3: total,
