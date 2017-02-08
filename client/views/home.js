@@ -5,7 +5,7 @@ Template.cards.helpers({
       const getRate = Rate.findOne();
       const date = value.start;
       const option1 = value.option1;
-      const option2 = Number.parseInt(value.option2);
+      const option2 = value.option2;
       const option3 = value.option3;
 
       const list = {
@@ -96,7 +96,7 @@ Template.payment.helpers({
         const getRate = Rate.findOne();
         const date = card.start;
         const option1 = card.option1;
-        const option2 = Number.parseInt(card.option2 * getRate.rate);
+        const option2 = card.option2;
         const option3 = card.option3;
         const list = {
           number: card.number,

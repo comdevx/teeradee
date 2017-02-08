@@ -60,7 +60,7 @@ Meteor.setInterval(function () {
     Cards.find({ start: { $ne: '' } }).forEach(function (value) {
         const getRate = Rate.findOne();
         const count = value.minute + 1;
-        const total = Number(count * getRate.rate);
+        const total = Number.parseInt(count * getRate.rate);
         Cards.update(value._id, {
             $set: {
                 option2: total,
