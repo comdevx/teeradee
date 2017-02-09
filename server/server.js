@@ -46,6 +46,7 @@ if (Cards.find().count() === 0) {
             option2: 0,
             option3: 0,
             minute: 0,
+            total: 0,
         });
     }
 }
