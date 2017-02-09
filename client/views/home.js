@@ -82,6 +82,7 @@ Template.payment.events({
         option2: 0,
         option3: 0,
         minute: 0,
+        total: 0,
       }
     });
   }
