@@ -35,6 +35,15 @@ Logs.allow({
     insert(userId, doc) {
         return true;
     },
+    remove(userId, doc) {
+        return true;
+    },
+});
+
+Count.allow({
+    update(userId, doc) {
+        return true;
+    }
 });
 
 if (Cards.find().count() === 0) {
@@ -54,6 +63,12 @@ if (Cards.find().count() === 0) {
 if (Rate.find().count() === 0) {
     Rate.insert({
         rate: 0,
+    });
+}
+
+if (Count.find().count() === 0) {
+    Count.insert({
+        ball: 0,
     });
 }
 

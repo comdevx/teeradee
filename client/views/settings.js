@@ -65,3 +65,11 @@ Template.log.helpers({
         return Logs.find();
     }
 });
+
+Template.log.events({
+    'click button': function (event) {
+        Logs.find().forEach(function (value) {
+            Logs.remove(value._id);
+        });
+    },
+});

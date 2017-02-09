@@ -1,5 +1,5 @@
 <template name="home">
-  {{>dropdown}}
+  {{>count}} {{>dropdown}}
   <!--<div class="section">-->
   <div class="container-fuild">
     <div class="row">
@@ -7,7 +7,14 @@
     </div>
   </div>
   <!--</div>-->
-  {{>option1}}{{>option2}} {{>payment}}
+  {{>option1}}{{>option3}} {{>payment}}
+</template>
+
+<template name="count">
+  <div class="pull-right">
+    {{ball.ball}}
+    <button class="btn btn-md btn-default">reset</button>
+  </div>
 </template>
 
 <template name="cards">
@@ -94,7 +101,7 @@
   </div>
 </template>
 
-<template name="option2">
+<template name="option3">
   <div class="fade modal text-center" id="option2">
     <div class="modal-dialog modal-sm">
       <div class="modal-content">
@@ -127,23 +134,23 @@
           <h4 class="modal-title">ชำระเงิน</h4>
         </div>
         <div class="modal-body">
-            <h2 class="text-center">{{payment.number}}</h2>
-            <div class="row">
-              <div class="col-xs-6 text-right">เริ่ม
-                <br>ค่าของกิน
-                <br>ค่าสนาม
-                <br>ค่าลูก
-                <br>รวม
-                <br>
-              </div>
-              <div class="text-left col-xs-6">{{payment.start}}
-                <br>{{payment.option1}}
-                <br>{{payment.option2}}
-                <br>{{payment.option3}}
-                <br>{{payment.total}}
-                <br>
-              </div>
+          <h2 class="text-center">{{payment.number}}</h2>
+          <div class="row">
+            <div class="col-xs-6 text-right">เริ่ม
+              <br>ค่าของกิน
+              <br>ค่าสนาม
+              <br>ค่าลูก
+              <br>รวม
+              <br>
             </div>
+            <div class="text-left col-xs-6">{{payment.start}}
+              <br>{{payment.option1}}
+              <br>{{payment.option2}}
+              <br>{{payment.option3}}
+              <br>{{payment.total}}
+              <br>
+            </div>
+          </div>
         </div>
         <div class="modal-footer">
           <a class="btn btn-success" data-dismiss="modal">Accept</a>

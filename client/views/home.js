@@ -24,6 +24,19 @@ Template.cards.helpers({
   }
 });
 
+Template.count.events({
+  'click button': function () {
+    const ball = Count.findOne();
+    Count.update(ball._id, { $set: { ball: 0 } });
+  }
+});
+
+Template.count.helpers({
+  ball: function () {
+    return Count.findOne();
+  }
+});
+
 Template.dropdown.helpers({
   numbers: function () {
     return Cards.find({ start: '' }, { sort: { number: 1 } });
@@ -141,15 +154,18 @@ Template.option1.helpers({
   }
 });
 
-Template.option2.events({
+Template.option3.events({
   'click div a.btn-success': function (event) {
     const price = Session.get('price');
     const id = Session.get('id');
     const card = Cards.findOne(id);
-    const count = Cards.find({ start: { $ne: '' } }).count();
+    const person = Cards.find({ start: { $ne: '' } }).count();
+
+    const count = Count.findOne();
+    Count.update(count._id, { $set: { ball: count.ball + 1 } });
 
     Cards.find().forEach(function (value) {
-      const sum = price / count;
+      const sum = price / person;
       const total = Number.parseInt(value.option3 + sum);
 
       Cards.update(value._id, {
@@ -167,7 +183,7 @@ Template.option2.events({
   }
 });
 
-Template.option2.helpers({
+Template.option3.helpers({
   options: function () {
     return Balls.find({}, { sort: { price: 1 } });
   }
