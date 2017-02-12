@@ -1,0 +1,1 @@
+/home/comdevx/teeradee/.teeradee.sh
