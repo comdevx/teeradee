@@ -166,7 +166,7 @@ Template.option3.events({
 
     Cards.find().forEach(function (value) {
       const sum = price / person;
-      const total = Number.parseInt(value.option3 + sum);
+      const total = Math.ceil(value.option3 + sum);
 
       Cards.update(value._id, {
         $set: {
