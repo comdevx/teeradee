@@ -131,19 +131,21 @@ Template.payment.helpers({
 
 Template.option1.events({
   'click div a.btn-success': function (event) {
-    const price = Session.get('price');
-    const id = Session.get('id');
-    const card = Cards.findOne(id);
-    Cards.update(id, {
-      $set: {
-        option1: card.option1 + price,
-      }
-    });
-    Session.set('price', 0);
+    const price = Session.get('price1');
+    if (price) {
+      const id = Session.get('id');
+      const card = Cards.findOne(id);
+      Cards.update(id, {
+        $set: {
+          option1: card.option1 + price,
+        }
+      });
+      Session.set('price1', 0);
+    }
   },
   'click a': function (event) {
     if (this.price) {
-      Session.set('price', this.price);
+      Session.set('price1', this.price);
     }
   }
 });
@@ -156,29 +158,31 @@ Template.option1.helpers({
 
 Template.option3.events({
   'click div a.btn-success': function (event) {
-    const price = Session.get('price');
-    const id = Session.get('id');
-    const card = Cards.findOne(id);
-    const person = Cards.find({ start: { $ne: '' } }).count();
+    const price = Session.get('price3');
+    if (price) {
+      const id = Session.get('id');
+      const card = Cards.findOne(id);
+      const person = Cards.find({ start: { $ne: '' } }).count();
 
-    const count = Count.findOne();
-    Count.update(count._id, { $set: { ball: count.ball + 1 } });
+      const count = Count.findOne();
+      Count.update(count._id, { $set: { ball: count.ball + 1 } });
 
-    Cards.find().forEach(function (value) {
-      const sum = price / person;
-      const total = Math.ceil(value.option3 + sum);
+      Cards.find().forEach(function (value) {
+        const sum = price / person;
+        const total = Math.ceil(value.option3 + sum);
 
-      Cards.update(value._id, {
-        $set: {
-          option3: total,
-        }
+        Cards.update(value._id, {
+          $set: {
+            option3: total,
+          }
+        });
       });
-    });
-    Session.set('price', 0);
+      Session.set('price3', 0);
+    }
   },
   'click a': function (event) {
     if (this.price) {
-      Session.set('price', this.price);
+      Session.set('price3', this.price);
     }
   }
 });
